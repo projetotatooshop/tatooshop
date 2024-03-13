@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    {% block conteudo %}
+
+<form method="POST" action="/cadastrar" id="formulario">
+  <fieldset id="field">
+    <legend><h1>Cadastrar Cliente</h1></legend>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" class="inputs" required><br><br>
+    
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" class="inputs" required><br><br>
+    
+    <label for="end">Endereço:</label>
+    <input type="text" id="endereco" name="end" class="inputs" required><br><br>
+  
+    <label for="fone">Telefone:</label>
+    <input type="tel" id="telefone" name="fone" class="inputs" required><br><br>
+    
+    <label for="idade">Idade:</label>
+    <input type="number" id="idade" name="idade" class="inputs" required><br><br>
+
+    <input type="reset" value="Limpar">
+    <input type="submit" value="Enviar">
+
+    
+  </fieldset>
+
+ 
+</form>
+{% endblock %}
+    
+</body>
+</html>
