@@ -1,2 +1,2 @@
 # tatooshop
-Repositorio do Projeto da tatoo aula deproject
+Repositorio do Projeto da tatoo aula de software project
