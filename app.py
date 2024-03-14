@@ -1,7 +1,7 @@
-import os
 from flask import Flask, render_template, json, request
 from pprint import pprint
 import mysql.connector as mc
+import buscacep as i
 
 app = Flask(__name__)
 
@@ -11,6 +11,33 @@ mysql = mc.connect(host = 'localhost', user = 'root', password = 'senha123', dat
 @app.route('/')
 def main():
     return render_template('index.html')
+
+
+@app.route('/buscacep', methods=['POST', 'GET'])
+def buscacep():
+    testar = True
+    buscou = True
+    cep = i.endereco(request.form.get('cep'))
+
+    if cep == i.CEPNaoExisteException:
+        testar = False
+        dados = {
+            'rua' : cep,
+            'validar' : testar,
+            'busca' : buscou
+        }
+        print('erro')
+        return render_template('index.html', **dados)
+    
+    else:
+        dados = {
+            'rua' : cep,
+            'validar' : testar,
+            'busca' : buscou
+        }
+        return render_template('index.html', **dados)
+
+            
 
 @app.route('/cadastrar', methods=['POST', 'GET'])
 def cadastrar():
