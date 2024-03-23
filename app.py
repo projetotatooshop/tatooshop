@@ -1,43 +1,29 @@
+import os
 from flask import Flask, render_template, json, request
 from pprint import pprint
-import mysql.connector as mc
-import buscacep as i
+from flaskext.mysql import MySQL
 
+mysql = MySQL()
 app = Flask(__name__)
 
 #conexao com DB
-mysql = mc.connect(host = 'localhost', user = 'root', password = 'senha123', database = 'tatto_shop')
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'senha123'
+app.config['MYSQL_DATABASE_DB'] = 'tatoo_shop'
+app.config['MYSQL_DATABASE_HOST'] = 'db'
+
+mysql.init_app(app)
+
+
 
 @app.route('/')
 def main():
     return render_template('index.html')
 
+@app.route('/cliente_cadastro')
+def ir():
+    return render_template('cliente_cadastro.html')
 
-@app.route('/buscacep', methods=['POST', 'GET'])
-def buscacep():
-    testar = True
-    buscou = True
-    cep = i.endereco(request.form.get('cep'))
-
-    if cep == i.CEPNaoExisteException:
-        testar = False
-        dados = {
-            'rua' : cep,
-            'validar' : testar,
-            'busca' : buscou
-        }
-        print('erro')
-        return render_template('index.html', **dados)
-    
-    else:
-        dados = {
-            'rua' : cep,
-            'validar' : testar,
-            'busca' : buscou
-        }
-        return render_template('index.html', **dados)
-
-            
 
 @app.route('/cadastrar', methods=['POST', 'GET'])
 def cadastrar():
@@ -48,17 +34,22 @@ def cadastrar():
     endereco = request.form.get('end')
     idade = request.form.get('idade')
 
-    #conn = mysql.connection
-    cursor = mysql.cursor()
-    cursor.execute("insert into tbl_cliente (nome, idade, email, endereco, telefone) VALUES ('%s', '%s', '%s', '%s', '%s')"%( nome,idade,mail,endereco,tel))
-    mysql.commit()
-
-    #cursor.execute("SELECT * FROM tbl_cliente WHERE nome = (nome)" %(nome))
-
-
-
-
-    return render_template('confirmacao.html', user= nome)
+    
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #buscando email e telefone para verificação
+    valida_email = cursor.execute ('select * from tbl_cliente where email =%s', (mail)) 
+    valida_telefone = cursor.execute ('select * from tbl_cliente where telefone =%s', (tel))      
+    #verificando email e telefone
+    if valida_email >0 or valida_telefone>0:
+        reposta = "E-mail ou Telefone já existente!"
+        return render_template('confirmacao.html', user= reposta)     
+        
+    else:
+        #inserindo no Banco de dados
+        cursor.execute("insert into tbl_cliente (nome, idade, email, endereco, telefone) VALUES ('%s', '%s', '%s', '%s', '%s')"%( nome,idade,mail,endereco,tel))
+        conn.commit()
+        return render_template('confirmacao.html', user= nome)
 
 
 
@@ -66,4 +57,5 @@ def cadastrar():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)

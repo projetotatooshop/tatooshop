@@ -1,0 +1,26 @@
+
+version: "3.9"
+services:
+ web:
+  build: .
+  working_dir: /data
+  command: python app.py
+  links:
+    - db
+  volumes:
+    - .:/data
+  ports:
+    - "5000:5000"
+
+ db:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  restart: always
+  environment:
+      MYSQL_ROOT_PASSWORD: senha123
+  ports:
+    - "3309:3309"
+  volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  
