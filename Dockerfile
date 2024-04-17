@@ -5,7 +5,7 @@ RUN mkdir templates
 RUN mkdir controlles
 COPY app.py /app.py
 COPY templates/*  /templates/
-COPY controlles/*  /controlles/
+COPY controllers/*  /controllers/
 RUN chmod -R a+rwx templates
-RUN chmod -R a+rwx controlles
+RUN chmod -R a+rwx controllers
 CMD ["python","app.py"]

@@ -9,3 +9,12 @@ CREATE TABLE tbl_cliente(
     CONSTRAINT UC UNIQUE (email,telefone),
     PRIMARY KEY (usuario_id)
     );
+
+USE tatoo_shop;
+CREATE TABLE tbl_produtos(
+    produto_id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL, marca VARCHAR(45) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL,
+    PRIMARY KEY (produto_id)
+    );

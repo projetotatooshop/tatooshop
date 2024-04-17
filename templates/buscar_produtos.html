@@ -1,0 +1,37 @@
+{% extends "index.html" %}{% block conteudo %}
+<h1>Lista de Produtos</h1>
+<form method="POST" action="/buscar_produto">
+    <label for="nome">Digite o nome do produto:</label>
+    <input type="text" id="nome" name="nome" class="inputs" required>
+    <button type="submit">Buscar</button><br>
+</form>
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <td>Cód</td>
+        <td>Nome</td>
+        <td>Marca</td>
+        <td>Descrição</td>
+        <td>Quantidade</td>
+        
+    </tr>  
+    {% for produto in produtos %}
+    <tr>
+        {% for d in produto %}
+            <td>{{ d }}</td>
+        {% endfor %}
+        <form action="/dados_produtos" method="POST">
+            <td><input type="submit" name="edita" value="Editar"></td>
+            <input type="hidden" name="cod" class="inputs" value="{{produto[0]}}"/>
+        </form>
+        <form action="/excluir_produto" method="POST">
+            <td><input type="submit" name="exclui"  value="Excluir"></td>
+            <input type="hidden" name="cod" class="inputs" value="{{produto[0]}}"/>
+        </form>
+
+    </tr>
+    {% endfor %}
+    
+</table>
+
+
+{% endblock %}

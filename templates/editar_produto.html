@@ -1,0 +1,26 @@
+{% extends "index.html" %}{% block conteudo %}
+<form method="POST" action="/editar_produto">
+    <fieldset >
+        <legend><h1>Editar Produto</h1></legend>
+        <label for="cod">Cod:</label>
+        <input type="text" id="cod" name="codigo" class="inputs" value="{{ produto[0] }}" disabled required><br><br>
+        <input type="hidden" name="cod" class="inputs" value="{{produto[0]}}"/>  
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" class="inputs" value="{{ produto[1] }}" required><br><br>
+        
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" class="inputs" value="{{ produto[2] }}" required><br><br>
+        
+        <label for="descricao">Descricao:</label>
+        <input type="text" id="descricao" name="descricao" class="inputs" value="{{ produto[3] }}" required><br><br>
+        
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade" class="inputs" value="{{ produto[4] }}" required><br><br>
+        
+        <input type="submit" value="Enviar">
+      
+    </fieldset>
+
+  </form>
+
+{% endblock %}
