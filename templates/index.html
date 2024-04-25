@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
-    <title>Cadastro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ titulo }}</title>
+  <link rel="stylesheet" href="../static/style.css">
 </head>
+
 <body>
-{% block conteudo %}
-  <a href="cliente_cadastro">Cadastrar Clientes</a><br><br>
-  <a href="listar_clientes">Buscar Cliente</a><br><br>
-  <a href="produto_cadastro">Cadastrar Produto</a><br><br>
-  <a href="listar_produtos">Buscar Produto</a><br><br>
-{% endblock %}
-    
+  {% block conteudo %}
+  <div class="container">
+    <div class="esquerda">
+      {% if session['usuario_logado'] == None %}
+        <input class="btn" style="width: 150px;" type="button" value="Login" onclick="window.location.href='login'"><br>
+        <input class="btn" style="width: 150px;" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'">
+      {% endif %}
+    </div>
+    <div class="centro">
+      {% if session['usuario_logado'] != None%}
+        <h1>Menu</h1>
+        {% if session['usuario_logado'] == 'admin' %}
+          <input class="btn" style="width: 150px;" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'"><br>  
+          <input class="btn" style="width: 150px;" type="button" value="Buscar Clientes" onclick="window.location.href='listar_clientes'"><br>
+          <input class="btn" style="width: 150px;" type="button" value="Cadastrar Produtos" onclick="window.location.href='produto_cadastro'"><br>
+          <input class="btn" style="width: 150px;" type="button" value="Buscar Produtos" onclick="window.location.href='listar_produtos'"><br>
+          <input class="btn" style="width: 150px;" type="button" value="Agendamento" onclick="window.location.href='agendamento'">
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="direita">
+      {% if session['usuario_logado'] != None%}
+        <input class="btn" type="button" value="Logout" onclick="window.location.href='logout'">
+      {% endif %}
+    </div>
+  {% endblock %}
+
+  {% if titulo != "Menu" %}
+    <div class="centro">
+      <br><br>
+      <input class="btn" style="width: 150px;" type="button" value="Voltar" onclick="window.location.href='/'">
+    </div>
+  {% endif %}
+  </div>
 </body>
+
 </html>

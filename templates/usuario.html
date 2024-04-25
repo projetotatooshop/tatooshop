@@ -1,0 +1,16 @@
+{% extends "index.html" %} {% block conteudo %}
+<form method="POST" action="autenticar" id="formulario">
+    <fieldset id="field">
+        <legend><h1>Faça seu Login</h1></legend>
+
+        <input type="hidden" name="proxima" value="{{ proxima }}">
+        <label>Nome de Usuário:</label>
+        <input type="text" name="usuario" required><br><br>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required><br><br>
+
+        <button type="submit">Entrar</button><br><br>
+    </fieldset>
+</form>
+{% endblock %}

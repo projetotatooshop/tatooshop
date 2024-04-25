@@ -1,0 +1,17 @@
+{% extends "index.html" %}{% block conteudo %}
+<form method="POST" action="{{ link }}" id="formulario">
+    <fieldset id="field">
+      <legend><h1>{{ titulo }}</h1></legend>
+      
+      {% for campo in campos %}
+      <label for="{{ campo.id }}">{{ campo.texto }}:</label>
+      <input type="{{ campo.tipo }}" id="{{ campo.id }}" name="{{ campo.nome }}" class="inputs" required><br><br>
+      {% endfor %}
+
+      <input type="reset" value="Limpar">
+      <input type="submit" value="Enviar">
+
+    </fieldset>
+  </form>
+
+{% endblock %}
