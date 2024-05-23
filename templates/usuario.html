@@ -10,7 +10,11 @@
         <label>Senha:</label>
         <input type="password" name="senha" required><br><br>
 
-        <button type="submit">Entrar</button><br><br>
+        <button type="submit">Entrar</button>
+        
+        {% if request.args.get('mensagem') %}
+            <p style="text-align: center;">Usuário ou senha inválidos.</p>
+        {% endif %}
     </fieldset>
 </form>
 {% endblock %}

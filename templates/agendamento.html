@@ -1,25 +1,41 @@
 {% extends 'index.html' %}
 
 {% block conteudo %}
-<form id="appointmentForm" action="/agendado" method="post">
+
   <fieldset>
-    <legend><h1>Agendamento</h1></legend>
-    <label for="date">Selecione a data:</label><br>
-    <input size="10" type="date" id="date" name="date" max="2024-12-31" required><br><br>
-
-    <label for="time">Selecione o horário:</label><br>
-    <select id="time" name="time" required>
-      <option value="8" selected disabled hidden>Selecione o horário</option>
-      {% for opcao in opcoes %}
-          <option>{{ opcao[0] }}</option>
-      {% endfor %}
-    </select>
-
-    <br><br>
-    <input type="reset" value="Limpar">
-    <input type="submit" value="Agendar">
+    <form id="appointmentForm" action="/pega_data" method="post">
+      <legend><h1>Agendamento</h1></legend><br>
+      <label for="data">Selecione a data:</label><br>
+      <input size="10" type="date" id="data" name="data" required>
+      <input type="submit" value="Buscar"><br><br>
+    </form>
+    <p>{{ dia }}</p>
+    {% if validacao == True %}
+        
+      <fieldset>
+        <form id="appointmentForm" action="/agendado" method="post">
+        <label for="time">Selecione o horário:</label><br>
+        <select name="time" id="time" required>
+          <option value="agenda"></option>
+          {% for hora in agenda%}
+          <option value=" {{hora}}">{{hora}}</option>
+          {% endfor %}
+          <option value="agenda"></option>
+        
+        
+        </select>
+        <br>
+        <label for="telefone">Telefone:</label><br>
+        <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br>
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" placeholder="Nome" required><br>
+        <input type="reset" value="Limpar">
+        <input type="submit" value="Agendar">
+        </form>
+      </fieldset>
+    {% endif %}
   </fieldset>
-</form>
+  
 
 <script src="../static/agendamento.js"></script>
 {% endblock %}
