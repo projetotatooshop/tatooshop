@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block conteudo %}
+<form id="appointmentForm" action="/agendado" method="post">
+  <fieldset>
+    <legend><h1>Agendamento</h1></legend>
+    <label for="date">Selecione a data:</label><br>
+    <input size="10" type="date" id="date" name="date" max="2024-12-31" required><br><br>
+
+    <label for="time">Selecione o horário:</label><br>
+    <select id="time" name="time" required>
+      <option value="8" selected disabled hidden>Selecione o horário</option>
+      {% for opcao in opcoes %}
+          <option>{{ opcao[0] }}</option>
+      {% endfor %}
+    </select>
+
+    <br><br>
+    <input type="reset" value="Limpar">
+    <input type="submit" value="Agendar">
+  </fieldset>
+</form>
+
+<script src="../static/agendamento.js"></script>
+{% endblock %}
