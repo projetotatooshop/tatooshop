@@ -37,7 +37,7 @@ def autenticar():
             return redirect(url_for('index'))
     
     # Se o usuário não existir ou a senha estiver incorreta
-    return redirect(url_for('login'))
+    return redirect(url_for('login', mensagem='Erro'))
 
 ...
 

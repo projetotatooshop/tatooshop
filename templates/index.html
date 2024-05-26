@@ -13,8 +13,7 @@
   <div class="container">
     <div class="esquerda">
       {% if session['usuario_logado'] == None %}
-        <input class="btn" style="width: 150px;" type="button" value="Login" onclick="window.location.href='login'"><br>
-        <input class="btn" style="width: 150px;" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'">
+        <input class="btn" style="width: 150px;" type="button" value="Login" onclick="window.location.href='login'">
       {% endif %}
     </div>
     <div class="centro">
@@ -25,7 +24,7 @@
           <input class="btn" style="width: 150px;" type="button" value="Buscar Clientes" onclick="window.location.href='listar_clientes'"><br>
           <input class="btn" style="width: 150px;" type="button" value="Cadastrar Produtos" onclick="window.location.href='produto_cadastro'"><br>
           <input class="btn" style="width: 150px;" type="button" value="Buscar Produtos" onclick="window.location.href='listar_produtos'"><br>
-          <input class="btn" style="width: 150px;" type="button" value="Agendamento" onclick="window.location.href='agendamento'">
+          <input class="btn" style="width: 150px;" type="button" value="Agendamento" onclick="window.location.href='agendar_sessao'">
         {% endif %}
       {% endif %}
     </div>
