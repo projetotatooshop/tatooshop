@@ -1,33 +1,36 @@
-{% extends "index.html" %}{% block conteudo %}
-<h1>{{ titulo }}</h1>
-<form method="POST" action="{{ link }}">
+{% extends "index.html" %}
+{% block conteudo %}
+<body id="page-list">
+    <h1>{{ titulo }}</h1>
+<form class="busca" method="POST" action="{{ link }}">
     <label for="busca">Digite o {{ busca }}: </label>
     <input type="text" id="busca" name="busca" class="inputs" required>
-    <button type="submit">Buscar</button><br><br>
+    <button class="btn" type="submit">Buscar</button><br><br>
 </form>
-<table class="tabela-estilo">
-    <tr>
-        {% for nome in nomes %}
-            <td>{{ nome }}</td>
+<div class="container-table">
+    <table class="tabela-estilo">
+        <tr>
+            {% for nome in nomes %}
+                <td>{{ nome }}</td>
+            {% endfor %}
+        </tr>  
+        {% for objeto in objetos %}
+        <tr>
+            {% for d in objeto %}
+                <td>{{ d }}</td>
+            {% endfor %}
+            <form action="{{ editar_btn }}" method="POST">
+                <td><button type="submit" name="edita" class="edit-icon"><i class="fas fa-edit"></i></button></td>
+                <input type="hidden" name="cod" class="inputs" value="{{objeto[0]}}"/>
+            </form>
+            <form action="{{ excluir_btn }}" method="POST">
+                <td><button type="submit" name="exclui" class="delete-icon"><i class="fas fa-trash"></i></button></td>
+                <input type="hidden" name="cod" class="inputs" value="{{objeto[0]}}"/>
+                <input type="hidden" name="tel" class="inputs" value="{{objeto[5]}}"/>
+            </form>
+        </tr>
         {% endfor %}
-    </tr>  
-    {% for objeto in objetos %}
-    <tr>
-        {% for d in objeto %}
-            <td>{{ d }}</td>
-        {% endfor %}
-        <form action="{{ editar_btn }}" method="POST">
-            <td><input type="submit" name="edita" value="Editar"></td>
-            <input type="hidden" name="cod" class="inputs" value="{{objeto[0]}}"/>
-        </form>
-        <form action="{{ excluir_btn }}" method="POST">
-            <td><input type="submit" name="exclui"  value="Excluir"></td>
-            <input type="hidden" name="cod" class="inputs" value="{{objeto[0]}}"/>
-            <input type="hidden" name="tel" class="inputs" value="{{objeto[5]}}"/>
-        </form>
-    </tr>
-    {% endfor %}
-</table>
-
-
+    </table>
+</div>
+</body>
 {% endblock %}

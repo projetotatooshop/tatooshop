@@ -1,41 +1,35 @@
 {% extends 'index.html' %}
 
 {% block conteudo %}
-
-  <fieldset>
-    <form id="appointmentForm" action="/pega_data" method="post">
-      <legend><h1>Agendamento</h1></legend><br>
-      <label for="data">Selecione a data:</label><br>
-      <input size="10" type="date" id="data" name="data" required>
-      <input type="submit" value="Buscar"><br><br>
+<fieldset class="agendamento-fieldset">
+    <form id="appointmentForm" action="/pega_data" method="post" class="agendamento-form">
+        <legend><h1>Agendamento</h1></legend><br>
+        <label for="data">Selecione a data:</label><br>
+        <input size="10" type="date" id="data" name="data" required>
+        <input type="submit" value="Buscar"><br><br>
     </form>
     <p>{{ dia }}</p>
     {% if validacao == True %}
-        
-      <fieldset>
-        <form id="appointmentForm" action="/agendado" method="post">
-        <label for="time">Selecione o horário:</label><br>
-        <select name="time" id="time" required>
-          <option value="agenda"></option>
-          {% for hora in agenda%}
-          <option value=" {{hora}}">{{hora}}</option>
-          {% endfor %}
-          <option value="agenda"></option>
-        
-        
-        </select>
-        <br>
-        <label for="telefone">Telefone:</label><br>
-        <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br>
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" placeholder="Nome" required><br>
-        <input type="reset" value="Limpar">
-        <input type="submit" value="Agendar">
+    <fieldset class="agendamento-fieldset">
+        <form id="appointmentForm" action="/agendado" method="post" class="agendamento-form">
+            <label for="time">Selecione o horário:</label><br>
+            <select name="time" id="time" required>
+                <option value="agenda"></option>
+                {% for hora in agenda %}
+                <option value="{{ hora }}">{{ hora }}</option>
+                {% endfor %}
+                <option value="agenda"></option>
+            </select><br>
+            <label for="telefone">Telefone:</label><br>
+            <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br>
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" placeholder="Nome" required><br>
+            <input type="reset" value="Limpar">
+            <input type="submit" value="Agendar">
         </form>
-      </fieldset>
+    </fieldset>
     {% endif %}
-  </fieldset>
-  
+</fieldset>
 
 <script src="../static/agendamento.js"></script>
 {% endblock %}
