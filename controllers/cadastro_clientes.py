@@ -12,7 +12,7 @@ mysql = MySQL(app)
 
 mysql.init_app(app)
 
-@app.route('/')
+@app.route('/menu')
 def index():
     return render_template('index.html', titulo="Menu")
 

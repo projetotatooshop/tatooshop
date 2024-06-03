@@ -12,9 +12,9 @@ mysql = MySQL(app)
 
 mysql.init_app(app)
 
-@app.route('/login')
+@app.route('/')
 def login():
-    return render_template('usuario.html')
+    return render_template('login.html')
 
 ...
 
@@ -44,4 +44,4 @@ def autenticar():
 @app.route('/logout')
 def logout():
     session['usuario_logado'] = None
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))

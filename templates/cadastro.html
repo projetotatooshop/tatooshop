@@ -1,17 +1,16 @@
-{% extends "index.html" %}{% block conteudo %}
-<form method="POST" action="{{ link }}" id="formulario">
-    <fieldset id="field">
-      <legend><h1>{{ titulo }}</h1></legend>
-      
-      {% for campo in campos %}
-      <label for="{{ campo.id }}">{{ campo.texto }}:</label>
-      <input type="{{ campo.tipo }}" id="{{ campo.id }}" name="{{ campo.nome }}" class="inputs" required><br><br>
-      {% endfor %}
+{% extends "index.html" %}
+{% block conteudo %}
+<body id="page-create">
+  <form method="POST" action="{{ link }}" id="formulario">
+    <legend><h1>{{ titulo }}</h1></legend>
+    
+    {% for campo in campos %}
+    <label for="{{ campo.id }}">{{ campo.texto }}:</label>
+    <input type="{{ campo.tipo }}" id="{{ campo.id }}" name="{{ campo.nome }}" class="inputs" required><br><br>
+    {% endfor %}
 
-      <input type="reset" value="Limpar">
-      <input type="submit" value="Enviar">
-
-    </fieldset>
-  </form>
-
+    <input class="btn" type="reset" value="Limpar">
+    <input class="btn" type="submit" value="Enviar">
+</form>
+</body>
 {% endblock %}
