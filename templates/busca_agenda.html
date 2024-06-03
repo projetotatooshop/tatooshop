@@ -1,0 +1,65 @@
+{% extends "index.html" %}{% block conteudo %}
+<h1>Agenda</h1>
+<form method="POST" action="lista_agenda">
+    <label for="busca">Escolha o dia: </label>
+    <input size="10" type="date" id="dia" name="dia" required>
+    <button type="submit">Buscar</button><br><br>
+</form>
+{% if busca == True %}
+<table class="tabela-estilo">
+    <tr>
+        {% for nome in nomes %}
+            <td>{{ nome }}</td>
+        {% endfor %}
+    </tr>  
+    {% for agendamento in lista %}
+    <tr>
+        {% for n in agendamento%}
+            <td>{{ n }}</td>
+        {% endfor %}
+
+        <!-- <form action="readendamento" method="POST">
+            <td><input type="submit" name="exclui"  value="readendar"></td>
+            <input type="hidden" name="cod" class="inputs" value="{{agendamento[0]}}"/>
+            <input type="hidden" name="tel" class="inputs" value="{{agendamento[4]}}"/>
+        </form> -->
+        <form action="excluir_agenda" method="POST">
+            <td><input type="submit" name="exclui"  value="Excluir"></td>
+            <input type="hidden" name="cod" class="inputs" value="{{agendamento[0]}}"/>
+        </form>
+        <!-- <td><button class="open-button" onclick="openForm()">Pagar</button></td>
+        
+        <script>
+            function openForm() {
+                document.getElementById("myForm").style.display = "block";
+            }
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+            }
+        </script>
+
+        <div class="form-popup" id="myForm">
+            <form action="pagar" method="POST" class="form-container">
+                <button type="button" class="close-button" style="top: 0; left: 0;" onclick="closeForm()">X</button>
+                <h1>Pagamento</h1>
+                <label for="forma">Forma de pagamento: </label>
+                <select name="forma" id="forma" required>
+
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão de Credito">Cartão de Crédito</option>
+                    <option value="Cartão de Debito">Cartão de Débito</option>
+                    <option value="Pix">Pix</option>
+
+                  </select><br>
+                  <label for="forma">Valor a pagar: </label>
+                  <input type="number" name="valor" id="valor" required>
+                <input type="hidden" name="cod" id="cod" class="inputs" value="{{agendamento[0]}}"/>
+                <button type="submit">Pagar</button>
+                <br>
+            </form> -->
+        </div>  
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
