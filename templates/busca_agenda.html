@@ -18,18 +18,16 @@
             <td>{{ n }}</td>
         {% endfor %}
 
-        <form action="readendamento" method="POST">
+        <!-- <form action="readendamento" method="POST">
             <td><input type="submit" name="exclui"  value="readendar"></td>
             <input type="hidden" name="cod" class="inputs" value="{{agendamento[0]}}"/>
             <input type="hidden" name="tel" class="inputs" value="{{agendamento[4]}}"/>
-        </form>
+        </form> -->
         <form action="excluir_agenda" method="POST">
             <td><input type="submit" name="exclui"  value="Excluir"></td>
             <input type="hidden" name="cod" class="inputs" value="{{agendamento[0]}}"/>
         </form>
-        <td><button class="open-button" onclick="openForm()">Pagar</button></td>
-        <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:1704275105. -->
-        <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:382901249. -->
+        <!-- <td><button class="open-button" onclick="openForm()">Pagar</button></td>
         
         <script>
             function openForm() {
@@ -58,7 +56,7 @@
                 <input type="hidden" name="cod" id="cod" class="inputs" value="{{agendamento[0]}}"/>
                 <button type="submit">Pagar</button>
                 <br>
-            </form>
+            </form> -->
         </div>  
     </tr>
     {% endfor %}
