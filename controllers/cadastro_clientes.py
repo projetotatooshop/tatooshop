@@ -182,24 +182,3 @@ def buscar_cliente():
     return render_template('listar.html', nomes=nomes, titulo=titulo, objetos = lista, editar_btn=editar_btn, excluir_btn=excluir_btn, link=link, busca=busca)
 
 ...
-
-@app.route('/agendamento')
-def agendamento_cliente():
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM tbl_agendamento")
-    horarios = cursor.fetchall()
-    conn.commit()
-
-    return render_template('agendamento.html', opcoes=horarios)
-
-...
-
-@app.route('/agendado', methods=['GET', 'POST'])
-def agendamento():
-    date = request.form['date']
-    time = request.form['time']
-
-    conteudo = f'Data: {date}, Hora: {time}'
-
-    return render_template('confirmacao.html', resposta=conteudo, titulo="Confirmação")
