@@ -16,12 +16,12 @@
       {% if session['usuario_logado'] != None%}
         <h1>Menu</h1>
         {% if session['usuario_logado'] == 'admin' %}
-          <input class="btn" style="width: 150px;" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'"><br>  
-          <input class="btn" style="width: 150px;" type="button" value="Buscar Clientes" onclick="window.location.href='listar_clientes'"><br>
-          <input class="btn" style="width: 150px;" type="button" value="Cadastrar Produtos" onclick="window.location.href='produto_cadastro'"><br>
-          <input class="btn" style="width: 150px;" type="button" value="Buscar Produtos" onclick="window.location.href='listar_produtos'"><br>
-          <input class="btn" style="width: 150px;" type="button" value="Fazer agendamento" onclick="window.location.href='agendamento'"><br>
-          <input class="btn" style="width: 150px;" type="button" value="Agenda" onclick="window.location.href='busca_agenda'">
+          <input class="btn" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'"><br>  
+          <input class="btn" type="button" value="Buscar Clientes" onclick="window.location.href='listar_clientes'"><br>
+          <input class="btn" type="button" value="Cadastrar Produtos" onclick="window.location.href='produto_cadastro'"><br>
+          <input class="btn" type="button" value="Buscar Produtos" onclick="window.location.href='listar_produtos'"><br>
+          <input class="btn" type="button" value="Fazer agendamento" onclick="window.location.href='agendamento'"><br>
+          <input class="btn" type="button" value="Agenda" onclick="window.location.href='busca_agenda'">
         {% endif %}
       {% endif %}
     </div>
