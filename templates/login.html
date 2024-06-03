@@ -1,7 +1,9 @@
 {% extends "index.html" %} {% block conteudo %}
 <body id="page-login">
+    
     <form method="POST" action="autenticar" id="formulario">
-            <legend><h1>Faça seu Login</h1></legend>
+        <img src="../static/assets/img/img_logo.jpg" alt="logo">
+            <legend><h1>Bem-vindo</h1></legend>
     
             <input type="hidden" name="proxima" value="{{ proxima }}">
             <label>Nome de Usuário:</label>

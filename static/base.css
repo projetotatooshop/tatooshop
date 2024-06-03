@@ -1,13 +1,14 @@
 :root {
-    --background-color: #1e1e1e;
-    --font-color: #f4f4f4;
-    --secondary-background-color: #333;
-    --tertiary-background-color: #444;
-    --highlight-color: #1296a0;
-    --highlight-hover-color: #0f8088;
+    --background-color: #fff;
+    --font-color: #666666;
+    --secondary-background-color: #FEF8F2;
+    --tertiary-background-color: #dddddd;
+    --highlight-color: #544737;
+    --highlight-hover-color: #3d3428;
     --error-color: #ff5252;
-    --table-header-background: #444;
-    --table-row-background: #3a3a3a;
+    --table-header-background: var(--tertiary-background-color);
+    --table-row-background: transparent;
+    --table-font-color: #333;
     --edit-icon-color: #fbff00;
     --delete-icon-color: #ff0000;
 }
@@ -31,7 +32,7 @@ body {
 
 #page-login {
     font-family: Arial, sans-serif;
-    background-color: var(--secondary-background-color);
+    background-color: var(--background-color);
     color: var(--font-color);
     display: flex;
     justify-content: center;
@@ -45,7 +46,7 @@ body {
 }
 
 #formulario {
-    background-color: var(--tertiary-background-color);
+    background-color: var(--secondary-background-color);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -74,6 +75,7 @@ input[type="password"] {
     border: none;
     border-radius: 5px;
     box-sizing: border-box;
+    background-color: var(--tertiary-background-color) ;
 }
 
 .btn {
@@ -208,12 +210,14 @@ input[type="button"] {
 }
 
 .container-table {
-    background-color: var(--table-header-background);
+    background-color: var(--secondary-background-color);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
     padding: 1%;
+    color: var(--table-font-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .edit-icon{
     color: var(--edit-icon-color);
@@ -289,4 +293,18 @@ input[type="button"] {
     position: absolute;
     right: 95%;
     bottom: 90%;
+    cursor: pointer;
+}
+
+.confirmation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.confirmation legend{
+    font-size: 3rem;
+}
+.confirmation h1{
+    color: var(--error-color);
 }
