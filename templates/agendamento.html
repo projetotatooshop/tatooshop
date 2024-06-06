@@ -1,41 +1,54 @@
-{% extends 'index.html' %}
-
-{% block conteudo %}
-
+{% extends 'index.html' %} {% block conteudo %}
+<body id="page-agendamento">
   <fieldset class="agendamento-fieldset">
-    <form id="appointmentForm" action="/pega_data" method="post">
-      <legend><h1>Agendamento</h1></legend><br>
-      <label for="data">Selecione a data:</label><br>
-      <input size="10" type="date" id="data" name="data" required>
-      <input class="btn" type="submit" value="Buscar"><br><br>
+    <form id="formulario" action="/pega_data" method="post">
+      <legend><h1>Agendamento</h1></legend>
+      <label for="data">Selecione a data:</label>
+      <input size="10" type="date" id="data" name="data" required />
+      <input class="btn" type="submit" value="Buscar" />
     </form>
 
     {% if validacao == True %}
-        
-      <fieldset class="agendamento-fieldset">
-        <form id="appointmentForm" action="/agendar" method="post" class="agendamento-form">
-        <label for="time">Selecione o horário:</label><br>
-        <select name="time" id="time" required>
 
+    <fieldset class="agendamento-fieldset">
+      <form
+        id="formulario"
+        action="/agendar"
+        method="post"
+        class="agendamento-form"
+      >
+        <label for="time">Selecione o horário:</label>
+        <select name="time" id="time" required>
           {% for hora in agenda %}
           <option value="{{hora}}">{{hora}}</option>
           {% endfor %}
-        
         </select>
-        <br>
-        <label for="telefone">Telefone:</label><br>
-        <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br>
-        <input type="hidden" name="dia" value="{{dia}}">
-        <input type="reset" value="Limpar">
-        <input type="submit" value="Agendar">
-        </form>
-      </fieldset>
+        <label for="telefone">Telefone:</label>
+        <input
+          type="tel"
+          id="telefone"
+          name="telefone"
+          placeholder="Telefone"
+          required
+        />
+        <input type="hidden" name="dia" value="{{dia}}" />
+        <input class="btn" type="reset" value="Limpar" />
+        <input class="btn" type="submit" value="Agendar" />
+      </form>
+    </fieldset>
     {% endif %}
-  </fieldset><br><br>
+  </fieldset>
   {% if validacao_telefone == False %}
-    <p>{{resposta}}</p><br>
-    <input class="btn" type="button" value="Cadastrar Cliente" onclick="window.location.href='cliente_cadastro'"><br>
+  <div class="agendamento-erro">
+    <h3>{{resposta}}</h3>
+    <input
+      class="btn"
+      type="button"
+      value="Cadastrar Cliente"
+      onclick="window.location.href='cliente_cadastro'"
+    />
+  </div>
   {% endif %}
-
-<script src="../static/agendamento.js"></script>
+  <script src="../static/agendamento.js"></script>
+</body>
 {% endblock %}
