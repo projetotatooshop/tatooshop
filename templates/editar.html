@@ -1,7 +1,7 @@
 {% extends "index.html" %}{% block conteudo %}
-<form method="POST" action="{{ link }}">
-    <fieldset >
-        <legend><h1>{{ titulo }}</h1></legend>
+<body id="page-editar">
+    <form method="POST" action="{{ link }}" id="formulario">
+        <h1>{{ titulo }}</h1>
         {% for campo in campos %}
         <label for="{{ campo.id }}">{{ campo.nome }}:</label>
             {% if campo.id == 'cod' %}
@@ -12,8 +12,6 @@
             {% endif %}
         {% endfor %}
         <input class="btn" type="submit" value="Enviar">
-    </fieldset>
-
   </form>
-
+</body>
 {% endblock %}

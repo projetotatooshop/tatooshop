@@ -24,7 +24,7 @@ body {
     height: 100vh;
 }
 
-#page-create{
+#page-create, #page-editar{
     padding: 2%;
 }
 

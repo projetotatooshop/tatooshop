@@ -144,7 +144,7 @@ def editar_cliente():
 # Função para excluir o cadastro do cliente no banco de dados
 @app.route('/excluir_cliente', methods=['POST'])
 def excluir_cliente():
-    telefone = str(request.form.get('telefone'))
+    telefone = str(request.form.get('tel'))
     conn = mysql.connect()
     cursor = conn.cursor()
 
