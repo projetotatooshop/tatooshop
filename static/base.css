@@ -9,7 +9,7 @@
     --table-header-background: var(--tertiary-background-color);
     --table-row-background: transparent;
     --table-font-color: #333;
-    --edit-icon-color: #fbff00;
+    --edit-icon-color: #ffb300;
     --delete-icon-color: #ff0000;
 }
 
@@ -152,6 +152,7 @@ input[type="button"] {
     margin: 5px 0;
     border: none;
     border-radius: 5px;
+    background-color: var(--tertiary-background-color) ;
 }
 
 #page-list .btn[type="submit"] {
@@ -242,9 +243,12 @@ input[type="button"] {
 }
 
 .agendamento-fieldset {
-    border: 1px solid #666;
+    border: none;
     padding: 20px;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .agendamento-fieldset legend {
@@ -255,7 +259,6 @@ input[type="button"] {
 .agendamento-form label {
     display: block;
     margin-bottom: 10px;
-    color: #ccc;
 }
 
 .agendamento-form input[type="date"],
@@ -307,4 +310,29 @@ input[type="button"] {
 }
 .confirmation h1{
     color: var(--error-color);
+}
+
+#page-agendamento input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--tertiary-background-color) ;
+}
+
+#page-agendamento, .agendamento-erro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.agendamento-erro h3{
+    color: var(--error-color);
+}
+
+.agendamento-erro input{
+    width: calc(20% - 20px);
 }

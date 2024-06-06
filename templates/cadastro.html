@@ -6,7 +6,7 @@
     
     {% for campo in campos %}
     <label for="{{ campo.id }}">{{ campo.texto }}:</label>
-    <input type="{{ campo.tipo }}" id="{{ campo.id }}" name="{{ campo.nome }}" class="inputs" required><br><br>
+    <input type="{{ campo.tipo }}" id="{{ campo.id }}" name="{{ campo.nome }}" class="inputs" required>
     {% endfor %}
 
     <input class="btn" type="reset" value="Limpar">

@@ -1,22 +1,21 @@
 {% extends "index.html" %} {% block conteudo %}
 <body id="page-login">
-    
-    <form method="POST" action="autenticar" id="formulario">
-        <img src="../static/assets/img/img_logo.jpg" alt="logo">
-            <legend><h1>Bem-vindo</h1></legend>
-    
-            <input type="hidden" name="proxima" value="{{ proxima }}">
-            <label>Nome de Usuário:</label>
-            <input type="text" name="usuario" required><br><br>
-    
-            <label>Senha:</label>
-            <input type="password" name="senha" required><br><br>
-    
-            <button class="btn" type="submit">Entrar</button>
-            
-            {% if request.args.get('mensagem') %}
-                <p style="text-align: center;">Usuário ou senha inválidos.</p>
-            {% endif %}
-    </form>
+  <form method="POST" action="autenticar" id="formulario">
+    <img src="../static/assets/img/img_logo.jpg" alt="logo" />
+    <legend><h1>Bem-vindo</h1></legend>
+
+    <input type="hidden" name="proxima" value="{{ proxima }}" />
+    <label>Nome de Usuário:</label>
+    <input type="text" name="usuario" required />
+
+    <label>Senha:</label>
+    <input type="password" name="senha" required />
+
+    <button class="btn" type="submit">Entrar</button>
+
+    {% if request.args.get('mensagem') %}
+    <p style="text-align: center">Usuário ou senha inválidos.</p>
+    {% endif %}
+  </form>
 </body>
 {% endblock %}
