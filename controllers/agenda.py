@@ -168,3 +168,46 @@ def pagar():
     return render_template('confirmacao.html', resposta=conteudo, titulo="Confirmação")
 
 ...
+
+@app.route('/dados_agenda', methods=['POST'])
+def dados_agenda():
+    codigo = request.form.get('cod')
+    conn = mysql.connect()
+    cursor = conn.cursor()  
+    # Buscar o registro da pessoa na tabela pelo telefone
+    cursor.execute ("SELECT * FROM tbl_agenda WHERE agenda_id=%s",(codigo))
+    cli = cursor.fetchone()
+    conn.commit()
+
+    campos = [
+        {'id': 'cod', 'nome': 'Cod', 'indice': 0},
+        {'id': 'dia', 'nome': 'Dia', 'indice': 1},
+        {'id': 'horario', 'nome': 'Horaio', 'indice': 2},
+        {'id': 'telefone', 'nome': 'Telefone', 'indice': 3}
+    ]
+    titulo = 'Editar Agendamento'
+    link = '/editar_agenda'
+
+    return render_template('editar_agenda.html', objeto = cli, campos=campos, titulo=titulo, link=link)
+
+...
+
+@app.route('/editar_agenda', methods=['POST'])
+def editar_agenda():
+    id = request.form.get('cod')
+    nome = request.form.get('nome')
+    dia = request.form.get('dia')
+    horario = request.form.get('horario')
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    valida = cursor.execute ('select * from tbl_agenda where dia = %s AND horario = %s', (dia, horario))
+
+    if valida > 0:
+        resposta = "Agendamento já existente!"
+        return render_template('confirmacao.html', resposta= resposta, titulo="Confirmação")
+    else:
+        cursor.execute('UPDATE tbl_agenda SET dia = %s, horario = %s WHERE agenda_id = %s',(dia, horario, id))
+        conn.commit()
+        resposta = "Agendamento editado com sucesso!"
+        return render_template('confirmacao.html', resposta=resposta, titulo="Confirmação")

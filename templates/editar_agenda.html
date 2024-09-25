@@ -1,0 +1,21 @@
+{% extends "index.html" %}{% block conteudo %}
+<body id="page-editar">
+    <form method="POST" action="{{ link }}" id="formulario">
+        <h1>{{ titulo }}</h1>
+        {% for campo in campos %}
+        <label for="{{ campo.id }}">{{ campo.nome }}:</label>
+            {% if campo.id == 'cod' %}
+                <input type="text" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[0] }}" disabled required>
+                <input type="hidden" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[0] }}">
+            {% else %}
+                {% if campo.id == 'dia' %}
+                    <input type="date" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[campo.indice] }}" required>
+                {% else %}
+                    <input type="text" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[campo.indice] }}" {% if campo.id == 'telefone' %} disabled {% endif %} required>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <input class="btn" type="submit" value="Enviar">
+  </form>
+</body>
+{% endblock %}
