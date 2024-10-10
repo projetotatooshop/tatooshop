@@ -1,0 +1,48 @@
+{% extends "index.html" %}{% block conteudo %}
+<fieldset class="agendamento-fieldset">
+    <form method="POST" action="pega_data_reagenda" id="formulario">
+
+        <h1>{{ titulo }}</h1>
+        {% for campo in campos %}
+            {% if campo.id == 'horario' %}
+            {% endif %}
+                {% if campo.id == 'cod' %}
+                    <label for="{{ campo.id }}">{{ campo.nome }}:</label>
+                    <input type="text" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[0] }}" disabled required>
+                    <input type="hidden" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[0] }}">
+                {% endif %}
+                {% if campo.id == 'telefone' %}
+                    <label for="{{ campo.id }}">{{ campo.nome }}:</label>
+                    <input type="text" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[3] }}" disabled required>
+                    <input type="hidden" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[3] }}">
+                {% endif %}
+                {% if campo.id == 'dia' %}
+                    <label for="{{ campo.id }}">{{ campo.nome }}:</label>
+                    <input type="date" id="{{ campo.id }}" name="{{ campo.id }}" class="inputs" value="{{ objeto[1] }}" required>
+
+                {% endif %}
+        {% endfor %}
+        <input class="btn" type="submit" value="Buscar horario">
+
+    </form>
+
+    <br><br>
+
+    <form method="POST" action="{{ link }}" id="formulario">
+
+        <label for="time">Selecione o horário:</label>
+        <select name="{{ campos[3]['id'] }}" id="{{ campos[3]['id'] }}" required>
+            {% for hora in agenda %}
+                <option value="{{hora}}">{{hora}}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" id="{{ campos[0]['id'] }}" name="{{ campos[0]['id'] }}" class="inputs" value="{{ objeto[0] }}">
+        <input type="hidden" id="{{ campos[2]['id'] }}" name="{{ campos[2]['id'] }}" class="inputs" value="{{ objeto[1] }}">
+        <input type="hidden" id="{{ campos[3]['id'] }}" name="{{ campos[3]['id'] }}" class="inputs" value="{{ campos[3]['id'] }}">  
+        <input class="btn" type="submit" value="Enviar">
+        
+    </form>
+    
+</fieldset>  
+</body>
+{% endblock %}

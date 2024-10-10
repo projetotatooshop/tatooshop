@@ -119,22 +119,6 @@ def lista_agenda():
 
 ...
 
-@app.route('/reagendar', methods=['GET', 'POST'])
-def reagendar():
-    #recebendo informação do formulário
-    data = request.form['reagendar_dia']
-    cod_agenda = request.form['cod']
-    #conectando com DB
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    #buscando agenda
-    cursor.execute('UPDATE tbl_agenda SET dia = %s WHERE agenda_id = %s', (data, cod_agenda))
-    conn.commit()
-    conteudo = "Reagendamento realizado com sucesso!"
-    return render_template('confirmacao.html', resposta=conteudo, titulo="Confirmação")
-
-...
-
 @app.route('/excluir_agenda', methods=['GET', 'POST'])
 def excluir_agenda():
     #recebendo informação do formulário
@@ -148,23 +132,103 @@ def excluir_agenda():
     conteudo = "Agendamento excluído com sucesso!"
     return render_template('confirmacao.html', resposta=conteudo, titulo="Confirmação")
 
+...
+
+@app.route('/dados_agenda', methods=['POST'])
+def dados_agenda():
+    codigo = request.form.get('cod')
+    conn = mysql.connect()
+    cursor = conn.cursor()  
+    # Buscar o registro da pessoa na tabela pelo telefone
+    cursor.execute ("SELECT * FROM tbl_agenda WHERE agenda_id=%s",(codigo))
+    cli = cursor.fetchone()
+    conn.commit()
+
+    campos = [
+        {'id': 'cod', 'nome': 'Cod', 'indice': 0},
+        {'id': 'telefone', 'nome': 'Telefone', 'indice': 1},
+        {'id': 'dia', 'nome': 'Dia', 'indice': 2},
+        {'id': 'horario', 'nome': 'Horário', 'indice': 3}
+        
+    ]
+    titulo = 'Editar Agendamento'
+    link = '/editar_agenda'
+
+    #listar horarios disponiveis
+    sessoes = []
+    cursor.execute("SELECT * FROM tbl_agenda WHERE dia = %s", (cli[1],))
+    horarios = cursor.fetchall()
+    for sessao in horarios:
+        sessoes.append(sessao[2])
+    cursor.execute("SELECT * FROM tbl_horas")
+    horas = cursor.fetchall()
+    conn.commit()
+    agenda = []
+    for hora in horas:
+        if hora[0] not in sessoes:
+            agenda.append(hora[0])
+            validacao = False
+        else:
+            pass
+
+    return render_template('editar_agenda.html', objeto = cli, agenda=agenda, campos=campos, titulo=titulo, link=link, validacao=validacao)
 
 ...
 
-@app.route('/pagar', methods=['GET', 'POST'])
-def pagar():
-    #recebendo informação do formulário
-    valor = request.form['valor']
-    forma = request.form['forma']
-    cod_agenda = request.form['cod']
-    situacao = "Pago"
-    #conectando com DB
+@app.route('/editar_agenda', methods=['POST'])
+def editar_agenda():
+    id = request.form.get('cod')
+    dia = request.form.get('dia')
+    horario = request.form.get('horario')
     conn = mysql.connect()
     cursor = conn.cursor()
-    #buscando agenda
-    cursor.execute('UPDATE tbl_agenda SET tipo_pagamento = %s, valor_total = %s, situacao = %s WHERE agenda_id = %s', (forma, valor, situacao, cod_agenda))
+
+    
+    cursor.execute('UPDATE tbl_agenda SET dia = %s, horario = %s WHERE agenda_id = %s',(dia, horario, id))
     conn.commit()
-    conteudo = "Pagamento realizado com sucesso!"
-    return render_template('confirmacao.html', resposta=conteudo, titulo="Confirmação")
+    resposta = "Agendamento editado com sucesso!"
+    return render_template('confirmacao.html', resposta=resposta, titulo="Confirmação")
 
 ...
+
+@app.route('/pega_data_reagenda', methods=['POST'])
+def pega_data_reagenda():
+    codigo = request.form.get('cod')
+    dia = request.form.get('dia')
+    conn = mysql.connect()
+    cursor = conn.cursor()  
+    # Buscar o registro da pessoa na tabela pelo telefone
+    cursor.execute ("SELECT * FROM tbl_agenda WHERE agenda_id=%s",(codigo))
+    cli = cursor.fetchone()
+    conn.commit()
+
+    campos = [
+        {'id': 'cod', 'nome': 'Cod', 'indice': 0},
+        {'id': 'telefone', 'nome': 'Telefone', 'indice': 1},
+        {'id': 'dia', 'nome': 'Dia', 'indice': 2},
+        {'id': 'horario', 'nome': 'Horário', 'indice': 3}
+        
+    ]
+    titulo = 'Editar Agendamento'
+    link = '/editar_agenda'
+
+    #listar horarios disponiveis
+    sessoes = []
+    cursor.execute("SELECT * FROM tbl_agenda WHERE dia = %s", (dia))
+    horarios = cursor.fetchall()
+    for sessao in horarios:
+        sessoes.append(sessao[2])
+    cursor.execute("SELECT * FROM tbl_horas")
+    horas = cursor.fetchall()
+    conn.commit()
+    agenda = []
+    for hora in horas:
+        if hora[0] not in sessoes:
+            agenda.append(hora[0])
+            validacao = False
+        else:
+            pass
+    cli = list(cli)
+    cli[1] = dia
+    cli = tuple(cli)
+    return render_template('editar_agenda.html', objeto = cli, agenda=agenda, campos=campos, titulo=titulo, link=link, validacao=validacao)
