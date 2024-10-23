@@ -19,6 +19,18 @@
         {% for n in agendamento%}
         <td>{{ n }}</td>
         {% endfor %}
+        <form action="carrinho" method="POST">
+          <td>
+            <button type="submit" name="cart" class="cart-icon">
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </td>
+          <input type="hidden" name="cod_cliente" class="inputs" value="{{agendamento[0]}}"/>
+          <input type="hidden" name="nome_cliente" class="inputs" value="{{agendamento[1]}}"/>
+          <input type="hidden" name="dia_cliente" class="inputs" value="{{agendamento[2]}}"/>
+          <input type="hidden" name="hora_cliente" class="inputs" value="{{agendamento[3]}}"/>
+          <input type="hidden" name="tel_cliente" class="inputs" value="{{agendamento[4]}}"/>
+        </form>
         <form action="dados_agenda" method="POST">
           <td>
             <button type="submit" name="edita" class="edit-icon">
