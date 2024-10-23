@@ -65,7 +65,7 @@ INSERT INTO tbl_produtos (nome, marca, descricao, quantidade)
 VALUES ("Tinta verde", "colors", "tinta padrão verde", 10);
 
 INSERT INTO tbl_produtos (nome, marca, descricao, quantidade)
-VALUES ("Tinta verde", "colors", "tinta padrão verde", 0);
+VALUES ("Tinta verde", "colors", "tinta padrão azul", 0);
 
 INSERT INTO tbl_horas (horarios)
 VALUES ("09h"), ("10h"), ("11h"), ("13h"), ("14h"), ("15h"), ("16h"), ("17h");
