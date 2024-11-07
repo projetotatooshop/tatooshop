@@ -182,9 +182,10 @@ def editar_agenda():
     horario = request.form.get('horario')
     conn = mysql.connect()
     cursor = conn.cursor()
+    situacao = "Reagendado"
 
     
-    cursor.execute('UPDATE tbl_agenda SET dia = %s, horario = %s WHERE agenda_id = %s',(dia, horario, id))
+    cursor.execute('UPDATE tbl_agenda SET dia = %s, horario = %s, situacao = %s WHERE agenda_id = %s',(dia, horario, situacao, id))
     conn.commit()
     resposta = "Agendamento editado com sucesso!"
     return render_template('confirmacao.html', resposta=resposta, titulo="Confirmação")

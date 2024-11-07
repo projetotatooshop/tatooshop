@@ -24,7 +24,7 @@
                 <label for="item">Selecione o produto:</label>
                 <select name="item" id="item" required>
                     {% for item in produtos %}
-                    <option value="{{ item[1] }}">{{ item[1] }}</option>
+                    <option value="{{ item[1] }}">{{ item[4] }}x {{ item[1] }}</option>
                     {% endfor %}
                 </select>
                 <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>
@@ -36,8 +36,11 @@
                 <label for="quantidade">Quantidade</label>
                 <input type="number" name="quantidade" id="quantidade">
                 <input class="btn" type="submit" value="Adicionar" />
-                
+                </form>
+
+
                 {% if valido == True %}
+                <form action="finalizar_compra" method="POST" class="agendamento-form">
                     <fieldset class="agendamento-fieldset">
                         <H3>Produtos adicionados</H3>
                         <table class="tabela-estilo">
@@ -54,11 +57,16 @@
                             </tr>
                             {% endfor %}
                         </table>
+                        <br>
+                        <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>
+                        <br>
+                        <input class="btn" type="submit" value="Finalizar Compra" />
                     </fieldset>
+                </form>
                 {% endif %}
             
                 <br>
-            </form>
+            
         </fieldset>      
     </div>
 </body>

@@ -39,11 +39,23 @@ CREATE TABLE tbl_agenda(
     );
 
 CREATE TABLE tbl_temp_cliente(
-    id BIGINT NOT NULL,
+    id INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
     dia DATE NOT NULL,
     horario VARCHAR(45) NOT NULL,
     telefone VARCHAR(12) NOT NULL
+    );
+
+CREATE TABLE tbl_pagamento(
+    pag_id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    dia DATE NOT NULL,
+    horario VARCHAR(45) NOT NULL,
+    telefone VARCHAR(12) NOT NULL,
+    produtos VARCHAR(255) NOT NULL,
+    valor INT NOT NULL,
+    forma VARCHAR(255) NOT NULL,
+    PRIMARY KEY (pag_id)
     );
 
 CREATE TABLE tbl_carrinho(
@@ -71,7 +83,7 @@ INSERT INTO tbl_horas (horarios)
 VALUES ("09h"), ("10h"), ("11h"), ("13h"), ("14h"), ("15h"), ("16h"), ("17h");
 
 INSERT INTO tbl_agenda (dia, horario, telefone, tipo_pagamento, valor_total, situacao)
-VALUES ("2024-10-24", "11h", "999999", "escolher", 0, "Ok");
+VALUES ("2024-11-07", "11h", "999999", "escolher", 0, "Ok");
 
 INSERT INTO tbl_agenda (dia, horario, telefone, tipo_pagamento, valor_total, situacao)
-VALUES ("2024-10-24", "14h", "333333", "escolher", 0, "Ok");
+VALUES ("2024-11-07", "14h", "333333", "escolher", 0, "Ok");

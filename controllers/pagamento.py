@@ -23,6 +23,9 @@ def carrinho():
     #conectando com DB
     conn = mysql.connect()
     cursor = conn.cursor()
+    #zerar tbl_temp_cliente
+    cursor.execute("DELETE FROM tbl_temp_cliente")
+    conn.commit()
     #manter informacoes do cliente e agenda usando banco de dados
     cursor.execute("INSERT INTO tbl_temp_cliente (id, nome, dia, horario, telefone) VALUES (%s, %s, %s, %s, %s)", (cod, nome, dia, hora, tel))
     conn.commit()
@@ -77,3 +80,60 @@ def add_carrinho():
     titulo = 'Carrinho de produtos'
     valido = True
     return render_template('carrinho.html', titulo=titulo, campos=campos, cliente=cliente,  produtos=produtos, carrinho=carrinho, valido=valido)
+
+...
+
+@app.route('/finalizar_compra', methods=['GET', 'POST'])
+def finalizar_compra():
+    cod = request.form.get('cod')
+    #conectando com DB
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #buscar dados do cliente
+    cursor.execute('SELECT * FROM tbl_temp_cliente WHERE id = %s', (cod,))
+    cliente = cursor.fetchone()
+    conn.commit()
+    #busca tudo do carrinho
+    cursor.execute("SELECT * FROM tbl_carrinho WHERE id = %s", (cod))
+    carrinho = cursor.fetchall()
+    conn.commit()
+    #apagar dados do carrinho
+    #cursor.execute("DELETE FROM tbl_carrinho WHERE id = %s", (cod))
+    #conn.commit()
+    formas = ['Pix', 'Dinheiro', 'Credito', 'Debito']
+    itens = ['Cód Carrinho', 'item', 'quantidade']
+    campos = ['Cód', 'Nome', 'Dia', 'Hora', 'Telefone']
+    return render_template('pagamento.html', cliente=cliente, carrinho=carrinho, campos=campos, itens=itens, formas=formas)
+
+...
+
+@app.route('/pagar', methods=['GET', 'POST'])
+def pagar():
+    cod = request.form.get('cod')
+    forma = request.form.get('forma')
+    valor = request.form.get('valor')
+    #conectando com DB
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #buscar dados do cliente
+    cursor.execute('SELECT * FROM tbl_temp_cliente WHERE id = %s', (cod,))
+    cliente = cursor.fetchone()
+
+    conn.commit()
+    #busca tudo do carrinho
+    cursor.execute("SELECT * FROM tbl_carrinho WHERE id = %s", (cod))
+    carrinho = cursor.fetchall()
+    conn.commit()
+    produtos = ', '.join([f'{item[2]}x {item[1]}' for item in carrinho])
+    #apagar dados do carrinho
+    cursor.execute("DELETE FROM tbl_carrinho")
+    conn.commit()
+    #registrar na tabela pagamento
+    cursor.execute("INSERT INTO tbl_pagamento (nome, dia, horario, telefone, produtos, valor, forma ) VALUES (%s, %s, %s, %s, %s, %s, %s)", (cliente[1], cliente[2], cliente[3], cliente[4], produtos, valor, forma))
+    conn.commit()
+    
+
+
+    resposta = "Pagamento realizado"
+    return render_template('confirmacao.html', resposta=resposta)
+
