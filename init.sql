@@ -65,7 +65,7 @@ CREATE TABLE tbl_carrinho(
     );
 
 INSERT INTO tbl_cliente (nome, idade, username, email, endereco, telefone, senha)
-VALUES ("admin", 20, "admin", "admin@admin.com", "admin", "999999", "admin");
+VALUES ("admin", 20, "admin", "admin@admin.com", "Rua admin", "999999", "admin");
 
 INSERT INTO tbl_cliente (nome, idade, username, email, endereco, telefone, senha)
 VALUES ("isaac", 20, "isaac", "email@mail.com", "Rua teste", "333333", "isaac");
@@ -77,13 +77,19 @@ INSERT INTO tbl_produtos (nome, marca, descricao, quantidade)
 VALUES ("Tinta verde", "colors", "tinta padrão verde", 10);
 
 INSERT INTO tbl_produtos (nome, marca, descricao, quantidade)
-VALUES ("Tinta verde", "colors", "tinta padrão azul", 0);
+VALUES ("Tinta azul", "colors", "tinta padrão azul", 5);
 
 INSERT INTO tbl_horas (horarios)
 VALUES ("09h"), ("10h"), ("11h"), ("13h"), ("14h"), ("15h"), ("16h"), ("17h");
 
 INSERT INTO tbl_agenda (dia, horario, telefone, tipo_pagamento, valor_total, situacao)
-VALUES ("2024-11-07", "11h", "999999", "escolher", 0, "Ok");
+VALUES ("2024-11-28", "11h", "999999", "escolher", 0, "Ok");
 
 INSERT INTO tbl_agenda (dia, horario, telefone, tipo_pagamento, valor_total, situacao)
-VALUES ("2024-11-07", "14h", "333333", "escolher", 0, "Ok");
+VALUES ("2024-11-28", "14h", "333333", "escolher", 0, "Ok");
+
+INSERT INTO tbl_pagamento (nome, dia, horario, telefone, produtos, valor, forma)
+VALUES ("admin", "2024-11-27", "11h", "999999", "1x Tinta vermelha, 3x Tinta verde", 200, "Pix");
+
+INSERT INTO tbl_pagamento (nome, dia, horario, telefone, produtos, valor, forma)
+VALUES ("isaac", "2024-11-27", "14h", "333333", "2x Tinta azul", 300, "Credito");

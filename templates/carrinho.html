@@ -24,7 +24,7 @@
                 <label for="item">Selecione o produto:</label>
                 <select name="item" id="item" required>
                     {% for item in produtos %}
-                    <option value="{{ item[1] }}">{{ item[4] }}x {{ item[1] }}</option>
+                    <option value="{{ item[1] }}">{{ item[1] }}</option>
                     {% endfor %}
                 </select>
                 <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>

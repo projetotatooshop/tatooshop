@@ -1,0 +1,58 @@
+{% extends "index.html" %}{% block conteudo %}
+<body id="page-list">
+  <h1>Caixa</h1>
+  <form class="busca" method="POST" action="dia_caixa">
+    <label for="busca">Escolha o dia: </label>
+    <input size="10" type="date" id="dia" name="dia" class="inputs" required />
+    <button class="btn" type="submit">Buscar</button>
+  </form>
+  {% if valido == False %}
+    <br><p>Não houve pagamentos neste dia.</p>
+  {% endif %}
+  {% if busca == True %}
+  <div class="container-table">
+    <table class="tabela-estilo">
+      <tr>
+        {% for nome in nomes %}
+        <td>{{ nome }}</td>
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for entradas in pagamentos %}
+        {% for n in entradas%}
+        <td>{{ n }}</td>
+        {% endfor %}
+        <form action="excluir_pagamento" method="POST">
+          <td>
+            <button type="submit" name="exclui" class="delete-icon">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+          <input type="hidden" name="cod" class="inputs" value="{{entradas[0]}}"/>
+        </form>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <br><br>
+  <div class="container-table">
+    <table class="tabela-estilo">
+        <caption>Valores por forma de pagamento:</caption>
+        <tr>
+            <td>Dinheiro</td>
+            <td>Pix</td>
+            <td>Credito</td>
+            <td>Debito</td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td>R${{ dinheiro }}</td>
+            <td>R${{ pix }}</td>
+            <td>R${{ credito }}</td>
+            <td>R${{ debito }}</td>
+            <td>R${{ total }}</td>
+        </tr>
+    </table>
+  </div>
+  {% endif %}
+  {% endblock %}
