@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+{% block conteudo %}
+<body id="page-list">
+    <div class="container-table">
+        <fieldset class="agendamento-fieldset">
+            <form action="add_carrinho" method="POST" class="agendamento-form">
+                <H3>Dados da Sessão</H3>
+                <br>
+                <table class="tabela-estilo">
+                    <tr>
+                        {% for campo in campos %}
+                        <td>{{ campo }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for info in cliente %}
+                        <td>{{ info }}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <br> 
+                
+                <H3>Produtos</H3>
+                <label for="item">Selecione o produto:</label>
+                <select name="item" id="item" required>
+                    {% for item in produtos %}
+                    <option value="{{ item[1] }}">{{ item[1] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>
+                <input type="hidden" name="nome" class="inputs" value="{{ cliente[1] }}"/>
+                <input type="hidden" name="dia" class="inputs" value="{{ cliente[2] }}"/>
+                <input type="hidden" name="hora" class="inputs" value="{{ cliente[3] }}"/>
+                <input type="hidden" name="tel" class="inputs" value="{{ cliente[4] }}"/>
+                <input type="hidden" name="validade" class="inputs" value="{{ valido }}"/>
+                <label for="quantidade">Quantidade</label>
+                <input type="number" name="quantidade" id="quantidade">
+                <input class="btn" type="submit" value="Adicionar" />
+                </form>
+
+
+                {% if valido == True %}
+                <form action="finalizar_compra" method="POST" class="agendamento-form">
+                    <fieldset class="agendamento-fieldset">
+                        <H3>Produtos adicionados</H3>
+                        <table class="tabela-estilo">
+                            <tr>
+                                <td>Carrinho</td>
+                                <td>Nome</td>
+                                <td>Quantidade</td>
+                            </tr>
+                            {% for item in carrinho %}
+                            <tr>
+                                {% for x in item %}
+                                <td>{{ x }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <br>
+                        <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>
+                        <br>
+                        <input class="btn" type="submit" value="Finalizar Compra" />
+                    </fieldset>
+                </form>
+                {% endif %}
+            
+                <br>
+            
+        </fieldset>      
+    </div>
+</body>
+{% endblock %}

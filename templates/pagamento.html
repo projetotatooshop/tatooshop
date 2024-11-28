@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% block conteudo %}
+<body id="page-list">
+    <div class="container-table">
+        <fieldset class="agendamento-fieldset">
+            <form action="pagar" method="POST" class="agendamento-form">
+                <H3>Dados da Sessão</H3>
+                <br>
+                <table class="tabela-estilo">
+                    <tr>
+                        {% for campo in campos %}
+                        <td>{{ campo }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for info in cliente %}
+                        <td>{{ info }}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <br> 
+                
+                <H3>Carrinho</H3>
+                <table class="tabela-estilo">
+                    <tr>
+                        {% for item in itens %}
+                        <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for info in carrinho %}
+                        <tr>
+                            {% for item in info %}
+                            <td>{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <br>
+                <label for="item">Selecione a forma de pagamento:</label>
+                <select name="forma" id="forma" required>
+                    {% for item in formas %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <label for="valor">Valor a pagar</label>
+                <br>
+                <input type="hidden" name="cod" class="inputs" value="{{ cliente[0] }}"/>
+                <input type="number" name="valor" id="valor">
+                <input class="btn" type="submit" value="Pagar"/>
+                </form>
+</body>
+{% endblock %}
